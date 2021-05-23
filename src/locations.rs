@@ -1,7 +1,7 @@
 use crate::items as items;
 
 pub struct Location {
-    pub rom_addr: u32,
+    pub rom_addr: u64,
     // Not sure we should be doing this at compilation time, since
     // can have zero, 1, or multiple items
     // It also probably needs to be a separate type, because

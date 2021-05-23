@@ -17,3 +17,8 @@ pub const MASTER_SWORD: Item = Item {
     rom_value: 0x49,
     name: "Master Sword",
 };
+
+pub const FIFTY_RUPEES: Item = Item {
+    rom_value: 0x41,
+    name: "Fifty Rupees",
+};
