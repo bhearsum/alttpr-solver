@@ -17,7 +17,7 @@ fn main() {
 
     let mut alttpr = File::open(&args[1]).expect("Failed to open rom");
 
-    for loc in &locations::LOCATIONS {
+    for loc in locations::get_locations() {
         alttpr
             .seek(std::io::SeekFrom::Start(loc.rom_addr))
             .expect("Couldn't seek");
