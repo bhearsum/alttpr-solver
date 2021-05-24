@@ -1,12 +1,21 @@
+use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::Seek;
+use std::process;
 
 mod items;
 mod locations;
 
 fn main() {
-    let mut alttpr = File::open("alttpr.sfc").expect("Failed to open rom");
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() != 2 {
+        println!("Usage: {} [rom]", args[0]);
+        process::exit(1);
+    }
+
+    let mut alttpr = File::open(&args[1]).expect("Failed to open rom");
 
     for loc in &locations::LOCATIONS {
         alttpr
