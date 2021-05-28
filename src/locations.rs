@@ -1,6 +1,15 @@
+use std::vec::Vec;
+use crate::items::Item;
+
 pub struct Location {
     pub rom_addr: u64,
     pub name: &'static str,
+}
+
+pub struct LocationNode {
+    loc: &'static Location,
+    contains: &'static Item,
+    requires: Vec<&'static Item>,
 }
 
 pub const ICE_PALACE_BIG_KEY_CHEST: Location = Location {

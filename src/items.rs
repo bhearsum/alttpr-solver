@@ -948,7 +948,7 @@ pub const ITEMS: [&Item; 157] = [
     &KEYGK,
 ];
 
-pub fn get_item(rom_value: u8) -> &'static Item {
+pub fn get_item<'a>(rom_value: u8) -> &'a Item {
     for i in &ITEMS {
         if i.rom_value == rom_value {
             return i;
