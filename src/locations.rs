@@ -21,6 +21,16 @@ pub struct PrizeLocation {
     pub requires: &'static [&'static [Item]],
 }
 
+pub enum AnyLocation {
+    Location,
+    PrizeLocation,
+}
+
+pub struct LocationSomething {
+    pub location: AnyLocation,
+    pub contains: &'static Item,
+}
+
 pub const ICE_PALACE_BIG_KEY_CHEST: Location = Location {
     rom_addr: 0xE9A4,
     requires: &[],

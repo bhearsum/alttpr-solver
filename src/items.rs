@@ -788,6 +788,11 @@ pub const KEYGK: Item = Item {
     name: "KeyGK",
 };
 
+pub const GANON_DEFEATED: Item = Item {
+    rom_value: 0,
+    name: "Ganon Defeated",
+};
+
 pub const UNKNOWN_PRIZE: Prize = Prize {
     rom_values: [0, 0],
     name: "Unknown Prize",
