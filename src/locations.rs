@@ -1346,7 +1346,49 @@ pub const DESERT_PALACE_PRIZE: PrizeLocation = PrizeLocation {
 pub const TOWER_OF_HERA_PRIZE: PrizeLocation = PrizeLocation {
     rom_addrs: [0x120A5, 0x18007A],
     requires: &[],
-    name: "Tower of Hera- Prize",
+    name: "Tower of Hera - Prize",
+};
+
+pub const TURTLE_ROCK_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x120A7, 0x180079],
+    requires: &[],
+    name: "Turtle Rock - Prize",
+};
+
+pub const ICE_PALACE_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x120A4, 0x180073],
+    requires: &[],
+    name: "Ice Palace - Prize",
+};
+
+pub const MISERY_MIRE_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x120A2, 0x180075],
+    requires: &[],
+    name: "Misery Mire - Prize",
+};
+
+pub const PALACE_OF_DARKNESS_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x120A1, 0x18007D],
+    requires: &[],
+    name: "Palace of Darkness - Prize",
+};
+
+pub const SKULL_WOODS_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x120A3, 0x18007B],
+    requires: &[],
+    name: "Skull Woods - Prize",
+};
+
+pub const SWAMP_PALACE_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x120A0, 0x180071],
+    requires: &[],
+    name: "Swamp Palace - Prize",
+};
+
+pub const THIEVES_TOWN_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x120A6, 0x180077],
+    requires: &[],
+    name: "Thieves' Town - Prize",
 };
 
 pub const LOCATIONS: [&Location; 218] = [
@@ -1570,9 +1612,15 @@ pub const LOCATIONS: [&Location; 218] = [
     &SKULL_WOODS_BOSS,
 ];
 
-// todo: add dark world
-pub const PRIZE_LOCATIONS: [&PrizeLocation; 3] = [
+pub const PRIZE_LOCATIONS: [&PrizeLocation; 10] = [
     &EASTERN_PALACE_PRIZE,
     &DESERT_PALACE_PRIZE,
     &TOWER_OF_HERA_PRIZE,
+    &TURTLE_ROCK_PRIZE,
+    &THIEVES_TOWN_PRIZE,
+    &MISERY_MIRE_PRIZE,
+    &SWAMP_PALACE_PRIZE,
+    &ICE_PALACE_PRIZE,
+    &SKULL_WOODS_PRIZE,
+    &PALACE_OF_DARKNESS_PRIZE,
 ];

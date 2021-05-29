@@ -483,11 +483,6 @@ pub const PROGRESSIVEBOWALTERNATE: Item = Item {
     name: "ProgressiveBowAlternate",
 };
 
-pub const TRIFORCE: Item = Item {
-    rom_value: 0x6A,
-    name: "Triforce",
-};
-
 pub const POWERSTAR: Item = Item {
     rom_value: 0x6B,
     name: "PowerStar",
@@ -848,7 +843,12 @@ pub const CRYSTAL7: Prize = Prize {
     name: "Crystal 7",
 };
 
-pub const ITEMS: [&Item; 157] = [
+pub const TRIFORCE: Prize = Prize {
+    rom_values: [0x6A, 0],
+    name: "Triforce",
+};
+
+pub const ITEMS: [&Item; 156] = [
     &UNKNOWN_ITEM,
     &L1SWORD,
     &L1SWORDANDSHIELD,
@@ -944,7 +944,6 @@ pub const ITEMS: [&Item; 157] = [
     &MULTIRNG,
     &PROGRESSIVEBOW,
     &PROGRESSIVEBOWALTERNATE,
-    &TRIFORCE,
     &POWERSTAR,
     &TRIFORCEPIECE,
     &MAPLW,
@@ -1008,7 +1007,7 @@ pub const ITEMS: [&Item; 157] = [
     &KEYGK,
 ];
 
-pub const PRIZES: [&Prize; 10] = [
+pub const PRIZES: [&Prize; 11] = [
     &PENDANT_OF_COURAGE,
     &PENDANT_OF_WISDOM,
     &PENDANT_OF_POWER,
@@ -1019,6 +1018,7 @@ pub const PRIZES: [&Prize; 10] = [
     &CRYSTAL5,
     &CRYSTAL6,
     &CRYSTAL7,
+    &TRIFORCE,
 ];
 
 pub fn get_item<'a>(rom_value: u8) -> &'a Item {
