@@ -5,6 +5,8 @@ pub enum LocationType {
     TwoAddr([u64; 2]),
 }
 
+type LocationRequirement = &'static [&'static [Item]];
+
 pub struct Location {
     pub rom_addrs: LocationType,
     pub name: &'static str,
@@ -17,7 +19,7 @@ pub struct Location {
     // * hera basement is locked by lamp OR fire rod
     // * king's tomb is locked by boots AND ((moon pearl AND mirror) OR mitts)
     //   * this can be represented by [moon pearl & mirror & boots] | [boots & mitts]
-    pub requires: &'static [&'static [Item]],
+    pub requires: LocationRequirement,
 }
 
 pub struct LocationItem {
@@ -93,7 +95,7 @@ pub const EASTERN_PALACE_CANNONBALL_CHEST: Location = Location {
 
 pub const EASTERN_PALACE_BIG_KEY_CHEST: Location = Location {
     rom_addrs: LocationType::OneAddr(0xE9B9),
-    requires: &[&[LAMP], &[FIREROD]],
+    requires: &[&[LAMP]],
     name: "Eastern Palace - Big Key Chest",
 };
 
@@ -1627,3 +1629,8 @@ pub const LOCATIONS: LocationList = [
     &SKULL_WOODS_PRIZE,
     &PALACE_OF_DARKNESS_PRIZE,
 ];
+
+pub fn is_accessible(loc: LocationType) -> bool {
+
+    return true;
+}
