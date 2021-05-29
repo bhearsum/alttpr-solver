@@ -77,25 +77,25 @@ pub const EASTERN_PALACE_BIG_CHEST: Location = Location {
 
 pub const EASTERN_PALACE_CANNONBALL_CHEST: Location = Location {
     rom_addr: 0xE9B3,
-    requires: &[],
+    requires: &[], // nothing
     name: "Eastern Palace - Cannonball Chest",
 };
 
 pub const EASTERN_PALACE_BIG_KEY_CHEST: Location = Location {
     rom_addr: 0xE9B9,
-    requires: &[],
+    requires: &[&[LAMP], &[FIREROD]],
     name: "Eastern Palace - Big Key Chest",
 };
 
 pub const EASTERN_PALACE_MAP_CHEST: Location = Location {
     rom_addr: 0xE9F5,
-    requires: &[],
+    requires: &[], // nothing
     name: "Eastern Palace - Map Chest",
 };
 
 pub const EASTERN_PALACE_BOSS: Location = Location {
     rom_addr: 0x180150,
-    requires: &[],
+    requires: &[&[LAMP]],
     name: "Eastern Palace - Boss",
 };
 
@@ -335,61 +335,61 @@ pub const SWAMP_PALACE_BOSS: Location = Location {
 
 pub const SANCTUARY: Location = Location {
     rom_addr: 0xEA79,
-    requires: &[],
+    requires: &[], // nothing
     name: "Sanctuary",
 };
 
 pub const SEWERS_SECRET_ROOM_LEFT: Location = Location {
     rom_addr: 0xEB5D,
-    requires: &[],
+    requires: &[&[BOMB]],
     name: "Sewers - Secret Room - Left",
 };
 
 pub const SEWERS_SECRET_ROOM_MIDDLE: Location = Location {
     rom_addr: 0xEB60,
-    requires: &[],
+    requires: &[&[BOMB]],
     name: "Sewers - Secret Room - Middle",
 };
 
 pub const SEWERS_SECRET_ROOM_RIGHT: Location = Location {
     rom_addr: 0xEB63,
-    requires: &[],
+    requires: &[&[BOMB]],
     name: "Sewers - Secret Room - Right",
 };
 
 pub const SEWERS_DARK_CROSS: Location = Location {
     rom_addr: 0xE96E,
-    requires: &[],
+    requires: &[&[LAMP]],
     name: "Sewers - Dark Cross",
 };
 
 pub const HYRULE_CASTLE_BOOMERANG_CHEST: Location = Location {
     rom_addr: 0xE974,
-    requires: &[],
+    requires: &[], // nothing
     name: "Hyrule Castle - Boomerang Chest",
 };
 
 pub const HYRULE_CASTLE_MAP_CHEST: Location = Location {
     rom_addr: 0xEB0C,
-    requires: &[],
+    requires: &[], // nothing
     name: "Hyrule Castle - Map Chest",
 };
 
 pub const HYRULE_CASTLE_ZELDAS_CELL: Location = Location {
     rom_addr: 0xEB09,
-    requires: &[],
+    requires: &[], // nothing - or maybe a big key ?
     name: "Hyrule Castle - Zelda's Cell",
 };
 
 pub const LINKS_UNCLE: Location = Location {
     rom_addr: 0x2DF45,
-    requires: &[],
+    requires: &[], // nothing
     name: "Link's Uncle",
 };
 
 pub const SECRET_PASSAGE: Location = Location {
     rom_addr: 0xE971,
-    requires: &[],
+    requires: &[], // nothing
     name: "Secret Passage",
 };
 
@@ -551,37 +551,37 @@ pub const TURTLE_ROCK_BOSS: Location = Location {
 
 pub const DESERT_PALACE_BIG_CHEST: Location = Location {
     rom_addr: 0xE98F,
-    requires: &[],
+    requires: &[&[BIGKEYP2]],
     name: "Desert Palace - Big Chest",
 };
 
 pub const DESERT_PALACE_MAP_CHEST: Location = Location {
     rom_addr: 0xE9B6,
-    requires: &[],
+    requires: &[], // nothing
     name: "Desert Palace - Map Chest",
 };
 
 pub const DESERT_PALACE_TORCH: Location = Location {
     rom_addr: 0x180160,
-    requires: &[],
+    requires: &[&[PEGASUSBOOTS]],
     name: "Desert Palace - Torch",
 };
 
 pub const DESERT_PALACE_BIG_KEY_CHEST: Location = Location {
     rom_addr: 0xE9C2,
-    requires: &[],
+    requires: &[], // nothing
     name: "Desert Palace - Big Key Chest",
 };
 
 pub const DESERT_PALACE_COMPASS_CHEST: Location = Location {
     rom_addr: 0xE9CB,
-    requires: &[],
+    requires: &[], // nothing
     name: "Desert Palace - Compass Chest",
 };
 
 pub const DESERT_PALACE_BOSS: Location = Location {
     rom_addr: 0x180151,
-    requires: &[],
+    requires: &[&[POWERGLOVE, LAMP], &[POWERGLOVE, FIREROD]],
     name: "Desert Palace - Boss",
 };
 
