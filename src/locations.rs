@@ -15,6 +15,12 @@ pub struct Location {
     pub requires: &'static [&'static [Item]],
 }
 
+pub struct PrizeLocation {
+    pub rom_addrs: [u64; 2],
+    pub name: &'static str,
+    pub requires: &'static [&'static [Item]],
+}
+
 pub const ICE_PALACE_BIG_KEY_CHEST: Location = Location {
     rom_addr: 0xE9A4,
     requires: &[],
@@ -1323,6 +1329,26 @@ pub const SKULL_WOODS_BOSS: Location = Location {
     name: "Skull Woods - Boss",
 };
 
+pub const EASTERN_PALACE_PRIZE: PrizeLocation = PrizeLocation {
+    // the randomizer writes 6 (or maybe 7) locations for prizes, but the first one is enough
+    // for our purposes, assuming we treat prizes as "special"
+    rom_addrs: [0x1209D, 0x18007C],
+    requires: &[&[LAMP]],
+    name: "Eastern Palace - Prize",
+};
+
+pub const DESERT_PALACE_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x1209E, 0x180078],
+    requires: &[],
+    name: "Desert Palace - Prize",
+};
+
+pub const TOWER_OF_HERA_PRIZE: PrizeLocation = PrizeLocation {
+    rom_addrs: [0x120A5, 0x18007A],
+    requires: &[],
+    name: "Tower of Hera- Prize",
+};
+
 pub const LOCATIONS: [&Location; 218] = [
     &ICE_PALACE_BIG_KEY_CHEST,
     &ICE_PALACE_COMPASS_CHEST,
@@ -1542,4 +1568,11 @@ pub const LOCATIONS: [&Location; 218] = [
     &SKULL_WOODS_POT_PRISON,
     &SKULL_WOODS_PINBALL_ROOM,
     &SKULL_WOODS_BOSS,
+];
+
+// todo: add dark world
+pub const PRIZE_LOCATIONS: [&PrizeLocation; 3] = [
+    &EASTERN_PALACE_PRIZE,
+    &DESERT_PALACE_PRIZE,
+    &TOWER_OF_HERA_PRIZE,
 ];

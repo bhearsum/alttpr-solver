@@ -3,6 +3,11 @@ pub struct Item {
     pub name: &'static str,
 }
 
+pub struct Prize {
+    pub rom_values: [u8; 2],
+    pub name: &'static str,
+}
+
 pub const UNKNOWN_ITEM: Item = Item {
     rom_value: 0x5A,
     name: "Unknown Item",
@@ -788,6 +793,61 @@ pub const KEYGK: Item = Item {
     name: "KeyGK",
 };
 
+pub const UNKNOWN_PRIZE: Prize = Prize {
+    rom_values: [0, 0],
+    name: "Unknown Prize",
+};
+
+pub const PENDANT_OF_COURAGE: Prize = Prize {
+    rom_values: [0x04, 0x69],
+    name: "Pendant of Courage",
+};
+
+pub const PENDANT_OF_WISDOM: Prize = Prize {
+    rom_values: [0x01, 0x69],
+    name: "Pendant of Wisdom",
+};
+
+pub const PENDANT_OF_POWER: Prize = Prize {
+    rom_values: [0x02, 0x69],
+    name: "Pendant of Power",
+};
+
+pub const CRYSTAL1: Prize = Prize {
+    rom_values: [0x02, 0x7F],
+    name: "Crystal 1",
+};
+
+pub const CRYSTAL2: Prize = Prize {
+    rom_values: [0x10, 0x79],
+    name: "Crystal 2",
+};
+
+pub const CRYSTAL3: Prize = Prize {
+    rom_values: [0x40, 0x6C],
+    name: "Crystal 3",
+};
+
+pub const CRYSTAL4: Prize = Prize {
+    rom_values: [0x20, 0x6D],
+    name: "Crystal 4",
+};
+
+pub const CRYSTAL5: Prize = Prize {
+    rom_values: [0x04, 0x6E],
+    name: "Crystal 5",
+};
+
+pub const CRYSTAL6: Prize = Prize {
+    rom_values: [0x01, 0x6F],
+    name: "Crystal 6",
+};
+
+pub const CRYSTAL7: Prize = Prize {
+    rom_values: [0x08, 0x7C],
+    name: "Crystal 7",
+};
+
 pub const ITEMS: [&Item; 157] = [
     &UNKNOWN_ITEM,
     &L1SWORD,
@@ -948,6 +1008,19 @@ pub const ITEMS: [&Item; 157] = [
     &KEYGK,
 ];
 
+pub const PRIZES: [&Prize; 10] = [
+    &PENDANT_OF_COURAGE,
+    &PENDANT_OF_WISDOM,
+    &PENDANT_OF_POWER,
+    &CRYSTAL1,
+    &CRYSTAL2,
+    &CRYSTAL3,
+    &CRYSTAL4,
+    &CRYSTAL5,
+    &CRYSTAL6,
+    &CRYSTAL7,
+];
+
 pub fn get_item<'a>(rom_value: u8) -> &'a Item {
     for i in &ITEMS {
         if i.rom_value == rom_value {
@@ -956,4 +1029,14 @@ pub fn get_item<'a>(rom_value: u8) -> &'a Item {
     }
 
     return ITEMS[0];
+}
+
+pub fn get_prize<'a>(rom_values: [u8; 2]) -> &'a Prize {
+    for i in &PRIZES {
+        if i.rom_values == rom_values {
+            return i;
+        }
+    }
+
+    return &UNKNOWN_PRIZE;
 }
