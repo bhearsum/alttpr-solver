@@ -1395,7 +1395,9 @@ pub const THIEVES_TOWN_PRIZE: Location = Location {
     name: "Thieves' Town - Prize",
 };
 
-pub const LOCATIONS: [&Location; 228] = [
+pub type LocationList = [&'static Location; 228];
+
+pub const LOCATIONS: LocationList = [
     &ICE_PALACE_BIG_KEY_CHEST,
     &ICE_PALACE_COMPASS_CHEST,
     &ICE_PALACE_MAP_CHEST,
