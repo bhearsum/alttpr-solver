@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::env;
 use std::fs::File;
 use std::process;
@@ -21,4 +22,12 @@ fn main() {
     for loc in loc_items.iter() {
         println!("{} contains: {}", loc.location.name, loc.contains.name);
     }
+
+    let mut current_items: HashSet<&items::Item> = HashSet::new();
+    current_items.insert(&items::BOW);
+    current_items.insert(&items::FIREROD);
+    current_items.insert(&items::POWERGLOVE);
+
+    println!("{} is accessible? {}", locations::EASTERN_PALACE_PRIZE.name, locations::EASTERN_PALACE_PRIZE.is_accessible(&current_items));
+    println!("{} is accessible? {}", locations::DESERT_PALACE_BOSS.name, locations::DESERT_PALACE_BOSS.is_accessible(&current_items));
 }

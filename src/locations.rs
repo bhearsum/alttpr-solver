@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+use std::iter::FromIterator;
 use crate::items::*;
 
 pub enum LocationType {
@@ -5,6 +7,7 @@ pub enum LocationType {
     TwoAddr([u64; 2]),
 }
 
+// can this be a set?
 type LocationRequirement = &'static [&'static [Item]];
 
 pub struct Location {
@@ -20,6 +23,19 @@ pub struct Location {
     // * king's tomb is locked by boots AND ((moon pearl AND mirror) OR mitts)
     //   * this can be represented by [moon pearl & mirror & boots] | [boots & mitts]
     pub requires: LocationRequirement,
+}
+
+impl Location {
+    pub fn is_accessible(&self, current_items: &HashSet<&Item>) -> bool {
+        for req in self.requires {
+            let reqset: HashSet<&Item> = HashSet::from_iter(req.iter());
+            if current_items.is_superset(&reqset) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 pub struct LocationItem {
@@ -1629,8 +1645,3 @@ pub const LOCATIONS: LocationList = [
     &SKULL_WOODS_PRIZE,
     &PALACE_OF_DARKNESS_PRIZE,
 ];
-
-pub fn is_accessible(loc: LocationType) -> bool {
-
-    return true;
-}
