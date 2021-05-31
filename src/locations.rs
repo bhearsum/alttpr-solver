@@ -1,6 +1,6 @@
+use crate::items::*;
 use std::collections::HashSet;
 use std::iter::FromIterator;
-use crate::items::*;
 
 pub enum LocationType {
     OneAddr(u64),

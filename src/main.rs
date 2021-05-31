@@ -16,18 +16,8 @@ fn main() {
     }
 
     let mut alttpr = File::open(&args[1]).expect("Failed to open rom");
-
     let loc_items = rom::find_items_in_rom(&mut alttpr, &locations::LOCATIONS);
-
-    for loc in loc_items.iter() {
-        println!("{} contains: {}", loc.location.name, loc.contains.name);
-    }
-
     let mut current_items: HashSet<&items::Item> = HashSet::new();
-    current_items.insert(&items::BOW);
-    current_items.insert(&items::FIREROD);
-    current_items.insert(&items::POWERGLOVE);
-
-    println!("{} is accessible? {}", locations::EASTERN_PALACE_PRIZE.name, locations::EASTERN_PALACE_PRIZE.is_accessible(&current_items));
-    println!("{} is accessible? {}", locations::DESERT_PALACE_BOSS.name, locations::DESERT_PALACE_BOSS.is_accessible(&current_items));
+    // we always have bombs, or can get them
+    current_items.insert(&items::BOMB);
 }
