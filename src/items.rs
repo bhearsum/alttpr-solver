@@ -790,11 +790,6 @@ pub const KEYGK: Item = Item {
     name: "KeyGK",
 };
 
-pub const GANON_DEFEATED: Item = Item {
-    rom_values: ItemType::OneAddr(0),
-    name: "Ganon Defeated",
-};
-
 pub const UNKNOWN_PRIZE: Item = Item {
     rom_values: ItemType::TwoAddr([0, 0]),
     name: "Unknown Item",

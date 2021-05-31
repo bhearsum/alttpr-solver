@@ -9,6 +9,7 @@ pub fn find_items_in_rom(rom: &mut File, locs: &LocationList) -> Vec<LocationIte
 
     for loc in locs.iter() {
         match loc.rom_addrs {
+            LocationType::Unreadable => (),
             LocationType::OneAddr(addr) => {
                 rom.seek(std::io::SeekFrom::Start(addr))
                     .expect("Couldn't seek");

@@ -20,4 +20,10 @@ fn main() {
     let mut current_items: HashSet<&items::Item> = HashSet::new();
     // we always have bombs, or can get them
     current_items.insert(&items::BOMB);
+
+    // triforce is always behind ganon!
+    let triforce_location = locations::LocationItem {
+        location: &locations::GANONS_TOWER_GANON_BOSS,
+        contains: &items::TRIFORCE,
+    };
 }

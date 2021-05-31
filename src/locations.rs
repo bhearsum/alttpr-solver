@@ -3,6 +3,7 @@ use std::collections::HashSet;
 use std::iter::FromIterator;
 
 pub enum LocationType {
+    Unreadable,
     OneAddr(u64),
     TwoAddr([u64; 2]),
 }
@@ -299,6 +300,12 @@ pub const GANONS_TOWER_MOLDORM_CHEST: Location = Location {
     rom_addrs: LocationType::OneAddr(0xEB06),
     requires: &[],
     name: "Ganon's Tower - Moldorm Chest",
+};
+
+pub const GANONS_TOWER_GANON_BOSS: Location = Location {
+    rom_addrs: LocationType::Unreadable,
+    requires: &[&[L2SWORD, SILVERARROWUPGRADE], &[L3SWORD], &[L4SWORD]],
+    name: "Ganon's Tower - Ganon",
 };
 
 pub const SWAMP_PALACE_ENTRANCE: Location = Location {
