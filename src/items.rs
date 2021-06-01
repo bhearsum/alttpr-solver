@@ -185,6 +185,21 @@ pub const REDMAIL: Item = Item {
     name: "RedMail",
 };
 
+pub const BOMBOS: Item = Item {
+    rom_values: ItemType::OneAddr(0x0F),
+    name: "Bombos",
+};
+
+pub const ETHER: Item = Item {
+    rom_values: ItemType::OneAddr(0x10),
+    name: "Ether",
+};
+
+pub const QUAKE: Item = Item {
+    rom_values: ItemType::OneAddr(0x11),
+    name: "Quake",
+};
+
 pub const KEY: Item = Item {
     rom_values: ItemType::OneAddr(0x24),
     name: "Key",
@@ -850,7 +865,7 @@ pub const TRIFORCE: Item = Item {
     name: "Triforce",
 };
 
-pub const ITEMS: [&Item; 167] = [
+pub const ITEMS: [&Item; 170] = [
     &UNKNOWN_ITEM,
     &L1SWORD,
     &L1SWORDANDSHIELD,
@@ -1018,6 +1033,9 @@ pub const ITEMS: [&Item; 167] = [
     &CRYSTAL6,
     &CRYSTAL7,
     &TRIFORCE,
+    &BOMBOS,
+    &ETHER,
+    &QUAKE,
 ];
 
 pub fn get_item<'a>(rom_values: ItemType) -> &'a Item {

@@ -26,4 +26,8 @@ fn main() {
         location: &locations::GANONS_TOWER_GANON_BOSS,
         contains: &items::TRIFORCE,
     };
+
+    for loc_item in loc_items {
+        println!("{} contains: {}", loc_item.location.name, loc_item.contains.name);
+    }
 }
