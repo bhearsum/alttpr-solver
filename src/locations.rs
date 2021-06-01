@@ -649,7 +649,10 @@ const DESERT_PALACE_COMPASS_CHEST: Location = Location {
 
 pub const DESERT_PALACE_BOSS: Location = Location {
     rom_addrs: LocationType::OneAddr(0x180151),
-    requires: &[&[PROGRESSIVEGLOVE, PROGRESSIVEGLOVE, LAMP], &[PROGRESSIVEGLOVE, PROGRESSIVEGLOVE, FIREROD]],
+    requires: &[
+        &[PROGRESSIVEGLOVE, PROGRESSIVEGLOVE, LAMP],
+        &[PROGRESSIVEGLOVE, PROGRESSIVEGLOVE, FIREROD],
+    ],
     name: "Desert Palace - Boss",
 };
 
