@@ -2,6 +2,7 @@ use crate::items::*;
 use std::collections::HashSet;
 use std::iter::FromIterator;
 
+#[derive(Debug)]
 pub enum LocationType {
     Unreadable,
     OneAddr(u64),
@@ -11,6 +12,7 @@ pub enum LocationType {
 // can this be a set?
 type LocationRequirement = &'static [&'static [Item]];
 
+#[derive(Debug)]
 pub struct Location {
     pub rom_addrs: LocationType,
     pub name: &'static str,
@@ -37,11 +39,42 @@ impl Location {
 
         return false;
     }
+
+    pub fn find_dependencies(&self, loc_items: &Vec<LocationItem>) -> Vec<Vec<&Location>> {
+        let mut depset: Vec<Vec<&Location>> = Vec::new();
+
+        for reqset in self.requires {
+            if !reqset.is_empty() {
+                let mut deps: Vec<&Location> = Vec::new();
+
+                for req in reqset.iter() {
+                    match get_location_by_item(loc_items, req) {
+                        Some(loc) => deps.push(loc),
+                        None => (),
+                    }
+                }
+
+                depset.push(deps);
+            }
+        }
+
+        return depset;
+    }
 }
 
 pub struct LocationItem {
     pub location: &'static Location,
     pub contains: &'static Item,
+}
+
+pub fn get_location_by_item(loc_items: &Vec<LocationItem>, item: &Item) -> Option<&'static Location> {
+    for loc in loc_items {
+        if loc.contains == item {
+            return Some(loc.location);
+        }
+    }
+
+    return None;
 }
 
 const ICE_PALACE_BIG_KEY_CHEST: Location = Location {

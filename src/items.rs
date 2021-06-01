@@ -1,10 +1,10 @@
-#[derive(PartialEq, Eq, Hash)]
+#[derive(PartialEq, Eq, Hash, Debug)]
 pub enum ItemType {
     OneAddr(u8),
     TwoAddr([u8; 2]),
 }
 
-#[derive(PartialEq, Eq, Hash)]
+#[derive(PartialEq, Eq, Hash, Debug)]
 pub struct Item {
     pub rom_values: ItemType,
     pub name: &'static str,
