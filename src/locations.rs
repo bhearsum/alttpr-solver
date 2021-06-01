@@ -47,11 +47,9 @@ impl Location {
             if !reqset.is_empty() {
                 let mut deps: Vec<&Location> = Vec::new();
 
+                // doesn't work with progressive items
                 for req in reqset.iter() {
-                    match get_location_by_item(loc_items, req) {
-                        Some(loc) => deps.push(loc),
-                        None => (),
-                    }
+                    deps.extend(get_locations_by_item(loc_items, req))
                 }
 
                 depset.push(deps);
@@ -67,14 +65,16 @@ pub struct LocationItem {
     pub contains: &'static Item,
 }
 
-pub fn get_location_by_item(loc_items: &Vec<LocationItem>, item: &Item) -> Option<&'static Location> {
+pub fn get_locations_by_item(loc_items: &Vec<LocationItem>, item: &Item) -> Vec<&'static Location> {
+    let mut locs: Vec<&Location> = Vec::new();
+
     for loc in loc_items {
         if loc.contains == item {
-            return Some(loc.location);
+            locs.push(loc.location);
         }
     }
 
-    return None;
+    return locs;
 }
 
 const ICE_PALACE_BIG_KEY_CHEST: Location = Location {
@@ -647,9 +647,9 @@ const DESERT_PALACE_COMPASS_CHEST: Location = Location {
     name: "Desert Palace - Compass Chest",
 };
 
-const DESERT_PALACE_BOSS: Location = Location {
+pub const DESERT_PALACE_BOSS: Location = Location {
     rom_addrs: LocationType::OneAddr(0x180151),
-    requires: &[&[POWERGLOVE, LAMP], &[POWERGLOVE, FIREROD]],
+    requires: &[&[PROGRESSIVEGLOVE, PROGRESSIVEGLOVE, LAMP], &[PROGRESSIVEGLOVE, PROGRESSIVEGLOVE, FIREROD]],
     name: "Desert Palace - Boss",
 };
 

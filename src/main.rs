@@ -27,7 +27,9 @@ fn main() {
         contains: &items::TRIFORCE,
     };
 
-    for loc_item in loc_items {
+    for loc_item in loc_items.iter() {
         println!("{} contains: {}", loc_item.location.name, loc_item.contains.name);
     }
+
+    println!("Dependencies for desert palace boss: {:#?}", locations::DESERT_PALACE_BOSS.find_dependencies(&loc_items));
 }
