@@ -9,8 +9,13 @@ pub enum LocationType {
     TwoAddr([u64; 2]),
 }
 
-// can this be a set?
-type LocationRequirement = &'static [&'static [Item]];
+#[derive(Debug)]
+pub struct LocationRequirement {
+    item: &'static Item,
+    amount: usize,
+}
+
+type LocationRequirements = &'static [&'static [LocationRequirement]];
 
 #[derive(Debug)]
 pub struct Location {
@@ -25,11 +30,11 @@ pub struct Location {
     // * hera basement is locked by lamp OR fire rod
     // * king's tomb is locked by boots AND ((moon pearl AND mirror) OR mitts)
     //   * this can be represented by [moon pearl & mirror & boots] | [boots & mitts]
-    pub requires: LocationRequirement,
+    pub requires: LocationRequirements,
 }
 
 impl Location {
-    pub fn is_accessible(&self, current_items: &HashSet<&Item>) -> bool {
+    /* pub fn is_accessible(&self, current_items: &HashSet<&Item>) -> bool {
         for req in self.requires {
             let reqset: HashSet<&Item> = HashSet::from_iter(req.iter());
             if current_items.is_superset(&reqset) {
@@ -38,8 +43,12 @@ impl Location {
         }
 
         return false;
-    }
+    } */
 
+    // need to think more about how to represent the possible ways
+    // to satisfy the dependencies. especially with progressive items,
+    // simply listing all possible variants may end up with a very large
+    // list
     pub fn find_dependencies(&self, loc_items: &Vec<LocationItem>) -> Vec<Vec<&Location>> {
         let mut depset: Vec<Vec<&Location>> = Vec::new();
 
@@ -47,9 +56,16 @@ impl Location {
             if !reqset.is_empty() {
                 let mut deps: Vec<&Location> = Vec::new();
 
-                // doesn't work with progressive items
                 for req in reqset.iter() {
-                    deps.extend(get_locations_by_item(loc_items, req))
+                    let locs = get_locations_by_item(loc_items, req.item);
+                    // always choose the first spot found for a progressive item - obviously
+                    // doesn't work properly
+                    for i in 0..req.amount {
+                        match locs.get(i) {
+                            Some(loc) => deps.push(loc),
+                            None => println!("Couldn't get enough {}", req.item.name),
+                        }
+                    }
                 }
 
                 depset.push(deps);
@@ -133,7 +149,10 @@ const EASTERN_PALACE_COMPASS_CHEST: Location = Location {
 
 const EASTERN_PALACE_BIG_CHEST: Location = Location {
     rom_addrs: LocationType::OneAddr(0xE97D),
-    requires: &[&[BIGKEYP1]],
+    requires: &[&[LocationRequirement {
+        item: &BIGKEYP1,
+        amount: 1,
+    }]],
     name: "Eastern Palace - Big Chest",
 };
 
@@ -145,7 +164,10 @@ const EASTERN_PALACE_CANNONBALL_CHEST: Location = Location {
 
 const EASTERN_PALACE_BIG_KEY_CHEST: Location = Location {
     rom_addrs: LocationType::OneAddr(0xE9B9),
-    requires: &[&[LAMP]],
+    requires: &[&[LocationRequirement {
+        item: &LAMP,
+        amount: 1,
+    }]],
     name: "Eastern Palace - Big Key Chest",
 };
 
@@ -157,7 +179,10 @@ const EASTERN_PALACE_MAP_CHEST: Location = Location {
 
 const EASTERN_PALACE_BOSS: Location = Location {
     rom_addrs: LocationType::OneAddr(0x180150),
-    requires: &[&[LAMP]],
+    requires: &[&[LocationRequirement {
+        item: &LAMP,
+        amount: 1,
+    }]],
     name: "Eastern Palace - Boss",
 };
 
@@ -337,7 +362,10 @@ const GANONS_TOWER_MOLDORM_CHEST: Location = Location {
 
 pub const GANONS_TOWER_GANON_BOSS: Location = Location {
     rom_addrs: LocationType::Unreadable,
-    requires: &[&[L2SWORD, SILVERARROWUPGRADE], &[L3SWORD], &[L4SWORD]],
+    requires: &[&[LocationRequirement {
+        item: &PROGRESSIVESWORD,
+        amount: 2,
+    }]],
     name: "Ganon's Tower - Ganon",
 };
 
@@ -409,25 +437,37 @@ const SANCTUARY: Location = Location {
 
 const SEWERS_SECRET_ROOM_LEFT: Location = Location {
     rom_addrs: LocationType::OneAddr(0xEB5D),
-    requires: &[&[BOMB]],
+    requires: &[&[LocationRequirement {
+        item: &BOMB,
+        amount: 1,
+    }]],
     name: "Sewers - Secret Room - Left",
 };
 
 const SEWERS_SECRET_ROOM_MIDDLE: Location = Location {
     rom_addrs: LocationType::OneAddr(0xEB60),
-    requires: &[&[BOMB]],
+    requires: &[&[LocationRequirement {
+        item: &BOMB,
+        amount: 1,
+    }]],
     name: "Sewers - Secret Room - Middle",
 };
 
 const SEWERS_SECRET_ROOM_RIGHT: Location = Location {
     rom_addrs: LocationType::OneAddr(0xEB63),
-    requires: &[&[BOMB]],
+    requires: &[&[LocationRequirement {
+        item: &BOMB,
+        amount: 1,
+    }]],
     name: "Sewers - Secret Room - Right",
 };
 
 const SEWERS_DARK_CROSS: Location = Location {
     rom_addrs: LocationType::OneAddr(0xE96E),
-    requires: &[&[LAMP]],
+    requires: &[&[LocationRequirement {
+        item: &LAMP,
+        amount: 1,
+    }]],
     name: "Sewers - Dark Cross",
 };
 
@@ -619,7 +659,10 @@ const TURTLE_ROCK_BOSS: Location = Location {
 
 const DESERT_PALACE_BIG_CHEST: Location = Location {
     rom_addrs: LocationType::OneAddr(0xE98F),
-    requires: &[&[BIGKEYP2]],
+    requires: &[&[LocationRequirement {
+        item: &BIGKEYP2,
+        amount: 1,
+    }]],
     name: "Desert Palace - Big Chest",
 };
 
@@ -631,7 +674,10 @@ const DESERT_PALACE_MAP_CHEST: Location = Location {
 
 const DESERT_PALACE_TORCH: Location = Location {
     rom_addrs: LocationType::OneAddr(0x180160),
-    requires: &[&[PEGASUSBOOTS]],
+    requires: &[&[LocationRequirement {
+        item: &PEGASUSBOOTS,
+        amount: 1,
+    }]],
     name: "Desert Palace - Torch",
 };
 
@@ -650,8 +696,26 @@ const DESERT_PALACE_COMPASS_CHEST: Location = Location {
 pub const DESERT_PALACE_BOSS: Location = Location {
     rom_addrs: LocationType::OneAddr(0x180151),
     requires: &[
-        &[PROGRESSIVEGLOVE, PROGRESSIVEGLOVE, LAMP],
-        &[PROGRESSIVEGLOVE, PROGRESSIVEGLOVE, FIREROD],
+        &[
+            LocationRequirement {
+                item: &PROGRESSIVEGLOVE,
+                amount: 1,
+            },
+            LocationRequirement {
+                item: &LAMP,
+                amount: 1,
+            },
+        ],
+        &[
+            LocationRequirement {
+                item: &PROGRESSIVEGLOVE,
+                amount: 1,
+            },
+            LocationRequirement {
+                item: &FIREROD,
+                amount: 1,
+            },
+        ],
     ],
     name: "Desert Palace - Boss",
 };
@@ -1398,7 +1462,10 @@ const EASTERN_PALACE_PRIZE: Location = Location {
     // the randomizer writes 6 (or maybe 7) locations for prizes, but the first one is enough
     // for our purposes, assuming we treat prizes as "special"
     rom_addrs: LocationType::TwoAddr([0x1209D, 0x18007C]),
-    requires: &[&[LAMP]],
+    requires: &[&[LocationRequirement {
+        item: &LAMP,
+        amount: 1,
+    }]],
     name: "Eastern Palace - Prize",
 };
 
