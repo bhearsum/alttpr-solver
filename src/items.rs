@@ -225,7 +225,7 @@ pub const THREEBOMBS: Item = Item {
     name: "ThreeBombs",
 };
 
-pub const MUSHROOM: Item = Item {
+pub const MUSHROOM_ITEM: Item = Item {
     rom_values: ItemType::OneAddr(0x29),
     name: "Mushroom",
 };
@@ -906,7 +906,7 @@ pub const ITEMS: [&Item; 170] = [
     &HEARTCONTAINERNOANIMATION,
     &BOMB,
     &THREEBOMBS,
-    &MUSHROOM,
+    &MUSHROOM_ITEM,
     &REDBOOMERANG,
     &BOTTLEWITHREDPOTION,
     &BOTTLEWITHGREENPOTION,

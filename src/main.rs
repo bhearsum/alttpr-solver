@@ -38,4 +38,13 @@ fn main() {
         "Dependencies for desert palace boss: {:#?}",
         locations::DESERT_PALACE_BOSS.find_dependencies(&loc_items)
     );
+
+    println!(
+        "Triforce requires: {:#?}",
+        locations::GANONS_TOWER_GANON_BOSS.requires
+    );
+    println!(
+        "Path to Triforce is: {:#?}",
+        locations::GANONS_TOWER_GANON_BOSS.find_path(&loc_items)
+    );
 }

@@ -72,6 +72,35 @@ impl Location {
 
         return depset;
     }
+
+    // finds any possible path to `self`
+    pub fn find_path(&self, loc_items: &Vec<LocationItem>) -> Vec<&Location> {
+        let mut path: Vec<&Location> = Vec::new();
+
+        if self.requires.len() == 0 {
+            return path;
+        }
+
+        for req in self.requires[0] {
+            let locs: Vec<&Location> = get_locations_by_item(loc_items, &req.item);
+            for i in 0..req.amount {
+                match locs.get(i) {
+                    Some(loc) => {
+                        // doing the path finding for dependencies here
+                        // probably means the path is broken whenever we
+                        // have more than one dependency, because we should
+                        // be adding the path to _all_ dependencies prior
+                        // to adding any of our own. i think?
+                        path.extend(loc.find_path(loc_items));
+                        path.push(loc);
+                    }
+                    None => println!("Couldn't get enough {}", req.item.name),
+                }
+            }
+        }
+
+        return path;
+    }
 }
 
 pub struct LocationItem {
@@ -354,7 +383,12 @@ const GANONS_TOWER_PRE_MOLDORM_CHEST: Location = Location {
 
 const GANONS_TOWER_MOLDORM_CHEST: Location = Location {
     rom_addrs: LocationType::OneAddr(0xEB06),
-    requires: &[],
+    requires: &[&[LocationRequirement {
+        // in non-keysanity, big key's all share the same item value
+        // so this usually ends up being not GT's big key
+        item: &BIGKEY,
+        amount: 1,
+    }]],
     name: "Ganon's Tower - Moldorm Chest",
 };
 
@@ -930,7 +964,10 @@ const GRAVEYARD_LEDGE: Location = Location {
 
 const MUSHROOM: Location = Location {
     rom_addrs: LocationType::OneAddr(0x180013),
-    requires: &[],
+    requires: &[&[LocationRequirement {
+        item: &MUSHROOM_ITEM,
+        amount: 1,
+    }]],
     name: "Mushroom",
 };
 
@@ -990,7 +1027,10 @@ const C_SHAPED_HOUSE: Location = Location {
 
 const CHEST_GAME: Location = Location {
     rom_addrs: LocationType::OneAddr(0xEDA8),
-    requires: &[],
+    requires: &[&[LocationRequirement {
+        item: &MOONPEARL,
+        amount: 1,
+    }]],
     name: "Chest Game",
 };
 
