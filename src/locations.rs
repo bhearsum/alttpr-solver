@@ -1,6 +1,4 @@
 use crate::items::*;
-use std::collections::HashSet;
-use std::iter::FromIterator;
 
 #[derive(Debug)]
 pub enum LocationType {
