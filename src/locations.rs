@@ -15,7 +15,12 @@ pub struct LocationRequirement {
 
 type LocationRequirements = &'static [&'static [LocationRequirement]];
 
-#[derive(Debug)]
+enum ItemRequirement {
+    Item,
+    AbsentItem,
+    ItemIn,
+}
+
 pub struct Location {
     pub rom_addrs: LocationType,
     pub name: &'static str,
@@ -28,7 +33,7 @@ pub struct Location {
     // * hera basement is locked by lamp OR fire rod
     // * king's tomb is locked by boots AND ((moon pearl AND mirror) OR mitts)
     //   * this can be represented by [moon pearl & mirror & boots] | [boots & mitts]
-    pub requires: LocationRequirements,
+    pub requires: &'static [&'static[&'static ItemRequirement]],
 }
 
 impl Location {
@@ -81,9 +86,9 @@ impl Location {
             return path;
         }
 
-        for req in self.requires[0] {
-            let locs: Vec<&Location> = get_locations_by_item(loc_items, &req.item);
-            for i in 0..req.amount {
+        for reqs in self.requires {
+            let locs: Vec<&Location> = get_locations_by_item(loc_items, &reqs[0].item);
+            for i in 0..reqs[0].amount {
                 match locs.get(i) {
                     Some(loc) => {
                         // doing the path finding for dependencies here
@@ -94,7 +99,7 @@ impl Location {
                         path.extend(loc.find_path(loc_items));
                         path.push(loc);
                     }
-                    None => println!("Couldn't get enough {}", req.item.name),
+                    None => println!("Couldn't get enough {}", reqs[0].item.name),
                 }
             }
         }
@@ -122,7 +127,15 @@ pub fn get_locations_by_item(loc_items: &Vec<LocationItem>, item: &Item) -> Vec<
 
 const ICE_PALACE_BIG_KEY_CHEST: Location = Location {
     rom_addrs: LocationType::OneAddr(0xE9A4),
-    requires: &[],
+    requires: &[
+        &[
+            &PROGRESSIVEGLOVE,
+            &PROGRESSIVEGLOVE,
+            &HAMMER,
+            &CANEOFBYRNA,
+            &HOOKSHOT,
+        ]
+    ],
     name: "Ice Palace - Big Key Chest",
 };
 
@@ -733,14 +746,10 @@ pub const DESERT_PALACE_BOSS: Location = Location {
                 item: &PROGRESSIVEGLOVE,
                 amount: 1,
             },
-            LocationRequirement {
-                item: &LAMP,
-                amount: 1,
-            },
         ],
         &[
             LocationRequirement {
-                item: &PROGRESSIVEGLOVE,
+                item: &LAMP,
                 amount: 1,
             },
             LocationRequirement {

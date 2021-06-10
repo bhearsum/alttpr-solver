@@ -5,6 +5,7 @@ use std::process;
 
 mod items;
 mod locations;
+mod requirements;
 mod rom;
 
 fn main() {

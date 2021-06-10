@@ -1,3 +1,5 @@
+use crate::locations::Location;
+
 #[derive(PartialEq, Eq, Hash, Debug)]
 pub enum ItemType {
     OneAddr(u8),
@@ -8,6 +10,15 @@ pub enum ItemType {
 pub struct Item {
     pub rom_values: ItemType,
     pub name: &'static str,
+}
+
+pub struct AbsentItem {
+    pub item: &'static Item,
+}
+
+pub struct ItemIn {
+    pub item: &'static Item,
+    pub locs: &'static [&'static Location],
 }
 
 pub const UNKNOWN_ITEM: Item = Item {
